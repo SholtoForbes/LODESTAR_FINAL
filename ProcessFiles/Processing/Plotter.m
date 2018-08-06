@@ -280,7 +280,9 @@ addpath('axlabel')
  figure(211)
  fig = gcf;
 set(fig,'Position',[200 0 850 1200])
-
+dim = [.62 .78 .2 .2];
+annotation('textbox',dim,'string',{['Payload Mass: ', num2str(ThirdStagePayloadMass), ' kg'],['Fuel Used: ' num2str(1562 - mFuel21(end)) ' kg']},'FitBoxToText','on');  
+hold on
 % %suptitle('Second Stage Ascent')
 subplot(4,1,1)
 % set(gca,'xticklabels',[])
@@ -297,7 +299,7 @@ addaxislabel(2,'Mach no.');
 
 
 addaxis(time21-time21(1),q21/1000,':','color','k', 'linewidth', 1.2);
-addaxislabel(3,'DYnamic Pressure (kPa)');
+addaxislabel(3,'Dynamic Pressure (kPa)');
 
 legend(  'Altitude', 'Mach no.', 'Dynamic Pressure', 'location', 'best');
 
@@ -355,138 +357,84 @@ addaxislabel(2,'Fuel Mass (kg)');
 legend(  'Net Isp', 'Thrust', 'Fuel Mass', 'location', 'best');
 
 
-% figure(211)
+ figure(212)
+ fig = gcf;
+set(fig,'Position',[200 0 850 1200])
+dim = [.62 .78 .2 .2];
+annotation('textbox',dim,'string',{['Fuel Used: ' num2str(mFuel22(1)) ' kg']},'FitBoxToText','on');  
+hold on
 % %suptitle('Second Stage Ascent')
-% fig = gcf;
-% set(fig,'Position',[200 0 850 1200])
-% 
-% title('Second Stage Ascent Trajectory');
-% hold on
-% 
-% subplot(7,2,1)
-% plot(time21-time21(1), alt21/1000,'Color','k')
-% hold on
-% title('Trajectory (km)','FontSize',9)
+subplot(4,1,1)
 % set(gca,'xticklabels',[])
-% xlim([0 time21(end)-time21(1)]);
-% 
-% dim = [.62 .7 .2 .2];
-% annotation('textbox',dim,'string',{['Payload Mass: ', num2str(ThirdStagePayloadMass), ' kg'],['Fuel Used: ' num2str(1562 - mFuel21(end)) ' kg']},'FitBoxToText','on');  
-% 
-% % subplot(7,2,2)
-% % plot(time21-time21(1), q121/1000,'Color','k')
-% % hold on
-% % title('Dynamic Pressure Entering Engine (kPa)','FontSize',9)
-% % set(gca,'xticklabels',[])
-% % xlim([0 time21(end)-time21(1)]);
-% 
-% subplot(7,2,3)
-% plot(time21-time21(1), v21,'Color','k')
-% hold on
-% title('Velocity (m/s)','FontSize',9)
+hold on
+xlim([0 time22(end)-time22(1)]);
+ plot(time22-time22(1),alt22/1000,'-','color','k', 'linewidth', 1.);
+% ylim([-30,40]);
+ylabel('altitude(km)');
+addaxis(time22-time22(1),M22,'--','color','k', 'linewidth', 1.);
+addaxislabel(2,'Mach no.');
+
+% addaxis(time,fpa,':','color','k', 'linewidth', 1.);
+% addaxislabel(3,'Trajectory Angle (deg)');
+
+
+addaxis(time22-time22(1),q22/1000,':','color','k', 'linewidth', 1.2);
+addaxislabel(3,'Dynamic Pressure (kPa)');
+
+legend(  'Altitude', 'Mach no.', 'Dynamic Pressure', 'location', 'best');
+
+
+subplot(4,1,2)
 % set(gca,'xticklabels',[])
-% xlim([0 time21(end)-time21(1)]);
-% 
-% subplot(7,2,4)
-% plot(time21-time21(1), M21,'Color','k')
-% hold on
-% title('Mach no','FontSize',9)
+hold on
+xlim([0 time22(end)-time22(1)]);
+ plot(time22-time22(1),rad2deg(gamma22),'-','color','k', 'linewidth', 1.);
+% ylim([-30,40]);
+ylabel('Trajectory Angle (deg)');
+
+addaxis(time22-time22(1),rad2deg(zeta22),'--','color','k', 'linewidth', 1.);
+addaxislabel(2,'Heading Angle (deg)');
+
+addaxis(time22-time22(1),L22./Fd22,':','color','k', 'linewidth', 1.2);
+addaxislabel(3,'L/D');
+
+legend(  'Trajectory Angle', 'Heading Angle', 'L/D', 'location', 'best');
+
+
+subplot(4,1,3)
 % set(gca,'xticklabels',[])
-% xlim([0 time21(end)-time21(1)]);
-% 
-% subplot(7,2,5)
-% plot(time21-time21(1), q21/1000,'Color','k')
-% hold on
-% title('Dynamic Pressure (kpa)','FontSize',9)
-% set(gca,'xticklabels',[])
-% xlim([0 time21(end)-time21(1)]);
-% 
-% subplot(7,2,6)
-% plot(time21-time21(1), rad2deg(gamma21),'Color','k')
-% hold on
-% title('Trajectory Angle (Deg)','FontSize',9)
-% set(gca,'xticklabels',[])
-% xlim([0 time21(end)-time21(1)]);
-% 
-% subplot(7,2,7)
-% plot(time21-time21(1), rad2deg(alpha21),'Color','k')
-% hold on
-% title('Angle of Attack (deg)','FontSize',9)
-% set(gca,'xticklabels',[])
-% xlim([0 time21(end)-time21(1)]);
-% 
-% if returnMode == 1
-% subplot(7,2,8)
-% plot(time21-time21(1), rad2deg(eta21),'Color','k')
-% hold on
-% title('Bank Angle (deg)','FontSize',9)
-% set(gca,'xticklabels',[])
-% xlim([0 time21(end)-time21(1)]);
-% 
-% else
-%   subplot(7,2,8)
-% plot(time21-time21(1), CG21,'Color','k')
-% hold on
-% title('Centre of Gravity (m)','FontSize',9)
-% set(gca,'xticklabels',[])
-% xlim([0 time21(end)-time21(1)]);  
-% end
-% 
-% subplot(7,2,9)
-% plot(time21-time21(1), flapdeflection21,'Color','k')
-% hold on
-% title('Flap Deflection (deg)','FontSize',9)
-% set(gca,'xticklabels',[])
-% xlim([0 time21(end)-time21(1)]);
-% 
-% % Isp1 = T1./Fueldt1./9.81;
-% IspNet21 = (T21-Fd21)./Fueldt21./9.81;
-% 
-% 
-% % Determine the thrust from the boat tail, and the last part of the nozzle.
-% % Note: this is included in Fd in all other places for computational
-% % efficiency
-% T21_rear = auxdata.T_spline_Rear(M21,rad2deg(alpha21),alt21/1000);
-% Cd_noengine = auxdata.Fd_spline_NoEngine(M21,rad2deg(alpha21),alt21/1000);
-% Fd_noengine = 0.5*Cd_noengine.*auxdata.A.*rho21.*v21.^2*auxdata.Cdmod;
-% 
-% subplot(7,2,13)
-% plot(time21-time21(1), T21/1000+T21_rear/1000 ,'Color','k')
-% hold on
-% title('Thrust (kN)','FontSize',9)
-% % set(gca,'xticklabels',[])
-% xlabel('Time (s)','FontSize',9);
-% xlim([0 time21(end)-time21(1)]);
-% 
-% subplot(7,2,12)
-% plot(time21-time21(1), IspNet21,'Color','k')
-% hold on
-% title('Net Isp (s)','FontSize',9)
-% set(gca,'xticklabels',[])
-% xlim([0 time21(end)-time21(1)]);
-% 
-% subplot(7,2,11)
-% plot(time21-time21(1), mFuel21,'Color','k')
-% hold on
-% title('Fuel Mass (kg)','FontSize',9)
-% % xlabel('Time (s)','FontSize',9);
-% xlim([0 time21(end)-time21(1)]);
-% set(gca,'xticklabels',[])
-% 
-% subplot(7,2,10)
-% plot(time21-time21(1), rad2deg(zeta21),'Color','k')
-% hold on
-% title('Heading Angle (deg)','FontSize',9)
-% set(gca,'xticklabels',[])
-% xlim([0 time21(end)-time21(1)]);
-% 
-% subplot(7,2,14)
-% plot(time21-time21(1), L21./Fd_noengine,'Color','k')
-% hold on
-% title('L/D','FontSize',9)
-% xlabel('Time (s)','FontSize',9);
-% xlim([0 time21(end)-time21(1)]);
-% 
+hold on
+xlim([0 time22(end)-time22(1)]);
+ plot(time22-time22(1),rad2deg(alpha22),'-','color','k', 'linewidth', 1.);
+% ylim([-30,40]);
+ylabel('Angle of Attack (deg)');
+
+addaxis(time22-time22(1),rad2deg(eta22),'--','color','k', 'linewidth', 1.);
+addaxislabel(2,'Bank Angle (deg)');
+
+addaxis(time22-time22(1),flapdeflection22,':','color','k', 'linewidth', 1.2);
+addaxislabel(3,'Flap Deflection (deg)');
+
+legend(  'Angle of Attack', 'Bank Angle', 'Flap Deflection', 'location', 'best');
+
+subplot(4,1,4)
+
+xlim([0 time22(end)-time22(1)]);
+hold on
+
+ plot(time22-time22(1),Isp22,'-','color','k', 'linewidth', 1.);
+% ylim([-30,40]);
+ylabel('Potential Isp (s)');
+xlabel('Time (s)');
+
+addaxis(time22-time22(1),T22/1000,'--','color','k', 'linewidth', 1.);
+addaxislabel(2,'Thrust (kN)');
+
+addaxis(time22-time22(1),throttle22,':','color','k', 'linewidth', 1.);
+addaxislabel(3,'Throttle');
+
+legend(  'Net Isp', 'Thrust', 'Throttle', 'location', 'best');
+
 
 
 ThirdStageFlag = [ones(length(time21),1); zeros(length(time22),1)];
@@ -495,114 +443,6 @@ SecondStageStates = [[time21; time22] [alt21; alt22] [lon21; lon22] [lat21; lat2
 dlmwrite(strcat('SecondStageStates',namelist{j}),['time (s) ' 'altitude (m) ' 'longitude (rad) ' 'latitude (rad) ' 'velocity (m/s) ' 'trajectory angle (rad) ' 'heading angle (rad) ' 'angle of attack (rad) ' 'bank angle (rad) ' 'fuel mass (kg) ' 'Third Stage (flag)'],'');
 dlmwrite(strcat('SecondStageStates',namelist{j}),SecondStageStates,'-append','delimiter',' ');
 movefile(strcat('SecondStageStates',namelist{j}),sprintf('../ArchivedResults/%s',strcat(Timestamp,'mode',num2str(mode))));
-
-%% Plot Return
-% figure(221)
-% %suptitle('Second Stage Return')
-% fig = gcf;
-% set(fig,'Position',[200 0 850 1200])
-% 
-% title('Second Stage Return Trajectory');
-% hold on
-% 
-% subplot(7,2,1)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% plot(time22-time22(1), alt22/1000,'Color','k')
-% title('Trajectory (km)','FontSize',9)
-% set(gca,'xticklabels',[])
-% 
-% dim = [.62 .7 .2 .2];
-% annotation('textbox',dim,'string',{['Fuel Used: ' num2str(mFuel22(1)) ' kg']},'FitBoxToText','on');  
-% 
-% subplot(7,2,3)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% plot(time22-time22(1), v22,'Color','k')
-% title('Velocity (m/s)','FontSize',9)
-% set(gca,'xticklabels',[])
-% 
-% subplot(7,2,4)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% plot(time22-time22(1), M22,'Color','k')
-% title('Mach no','FontSize',9)
-% set(gca,'xticklabels',[])
-% 
-% subplot(7,2,5)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% plot(time22-time22(1), q22/1000,'Color','k')
-% title('Dynamic Pressure (kpa)','FontSize',9)
-% set(gca,'xticklabels',[])
-% 
-% subplot(7,2,6)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% plot(time22-time22(1), rad2deg(gamma22),'Color','k')
-% title('Trajectory Angle (Deg)','FontSize',9)
-% set(gca,'xticklabels',[])
-% 
-% subplot(7,2,7)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% plot(time22-time22(1), rad2deg(alpha22),'Color','k')
-% title('Angle of Attack (deg)','FontSize',9)
-% set(gca,'xticklabels',[])
-% 
-% subplot(7,2,8)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% ylim([rad2deg(min(eta22))-1 rad2deg(max(eta22))+1]);
-% plot(time22-time22(1), rad2deg(eta22),'Color','k')
-% title('Bank Angle (deg)','FontSize',9)
-% set(gca,'xticklabels',[])
-% 
-% subplot(7,2,9)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% plot(time22-time22(1), flapdeflection22,'Color','k')
-% title('Flap Deflection (deg)','FontSize',9)
-% set(gca,'xticklabels',[])
-% 
-% T22_rear = auxdata.T_spline_Rear(M22,rad2deg(alpha22),alt22/1000);
-% 
-% subplot(7,2,13)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% ylim([0 max(T22+T22_rear)/1000]);
-% plot(time22-time22(1), T22/1000+T22_rear/1000,'Color','k')
-% title('Thrust (kN)','FontSize',9)
-% 
-% xlabel('Time (s)','FontSize',9);
-% 
-% subplot(7,2,12)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% plot(time22-time22(1), Isp22,'Color','k')
-% title('Potential Isp (s)','FontSize',9)
-% set(gca,'xticklabels',[])
-% 
-% subplot(7,2,11)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% plot(time22-time22(1), mFuel22,'Color','k')
-% title('Fuel Mass (kg)','FontSize',9)
-% set(gca,'xticklabels',[])
-% 
-% subplot(7,2,14)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% plot(time22-time22(1), throttle22,'Color','k')
-% title('Throttle','FontSize',9)
-% xlabel('Time (s)','FontSize',9);
-% 
-% subplot(7,2,10)
-% xlim([0 time22(end)-time22(1)]);
-% hold on
-% plot(time22-time22(1), rad2deg(zeta22),'Color','k')
-% title('Heading Angle (deg)','FontSize',9)
-% set(gca,'xticklabels',[])
 
 
 %% Check KKT and pontryagins minimum
@@ -897,63 +737,129 @@ plot(time3,v3);
 
 
 
-figure(311)
-    fig = gcf;
-set(fig,'Position',[200 0 850 650])
-%%suptitle('Third Stage Trajectory');
-    hold on
+% figure(311)
+%     fig = gcf;
+% set(fig,'Position',[200 0 850 650])
+% %%suptitle('Third Stage Trajectory');
+%     hold on
+%     
+%     subplot(4,2,1)
+%     hold on
+%     title('Altitude (km','FontSize',9);
+%     plot([time3; timeexo.'+time3(end)], [alt3; altexo.']/1000,'Color','k')
+%     xlim([time3(1) timeexo(end)+time3(end)])
+% set(gca,'xticklabels',[])
+%     subplot(4,2,2)
+%     hold on
+%     title('Dynamic Pressure (kPa','FontSize',9);
+%     plot([time3; timeexo.'+time3(end)],[q3;qexo.';qexo(end)]/1000,'Color','k')
+%     xlim([time3(1) timeexo(end)+time3(end)])
+% set(gca,'xticklabels',[])
+%     subplot(4,2,3)
+%     hold on
+%     title('Angle of Attack (deg)','FontSize',9);
+%     plot([time3; timeexo.'+time3(end)],[rad2deg(aoa3);0*ones(length(timeexo),1)],'Color','k')
+%     xlim([time3(1) timeexo(end)+time3(end)])
+% set(gca,'xticklabels',[])
+%     subplot(4,2,4)
+%     hold on
+%     title('Velocity (m/s)','FontSize',9);
+%     plot([time3; timeexo.'+time3(end)],[v3;v3exo.'],'Color','k')
+%     xlim([time3(1) timeexo(end)+time3(end)])
+% set(gca,'xticklabels',[])
+%     subplot(4,2,5)
+%     hold on
+%     title('Mass (kg)','FontSize',9);
+%     plot([time3; timeexo.'+time3(end)],[ m3;mexo.';mexo(end)],'Color','k')
+%     xlim([time3(1) timeexo(end)+time3(end)])
+% set(gca,'xticklabels',[])
+%     subplot(4,2,6)
+%     hold on
+%     title('Thrust Vector Angle (deg)','FontSize',9);
+%     plot([time3; timeexo.'+time3(end)],[rad2deg(Vec_angle3);0*ones(length(timeexo),1)],'Color','k')
+%     xlabel('Time (s)','FontSize',9);
+%     xlim([time3(1) timeexo(end)+time3(end)])
+% set(gca,'xticklabels',[])
+%     subplot(4,2,7)
+%     hold on
+%     title('Thrust','FontSize',9);
+%     plot([time3], [T3],'Color','k')
+% 
+%     xlabel('Time (s)','FontSize',9);
+%     xlim([time3(1) timeexo(end)+time3(end)])
+%     subplot(4,2,8)
+%     hold on
+%     title('Drag','FontSize',9);
+%     plot([time3], [D3],'Color','k')
+% 
+%     xlabel('Time (s)','FontSize',9);
+%     xlim([time3(1) timeexo(end)+time3(end)])
+%     
     
-    subplot(4,2,1)
-    hold on
-    title('Altitude (km','FontSize',9);
-    plot([time3; timeexo.'+time3(end)], [alt3; altexo.']/1000,'Color','k')
-    xlim([time3(1) timeexo(end)+time3(end)])
-set(gca,'xticklabels',[])
-    subplot(4,2,2)
-    hold on
-    title('Dynamic Pressure (kPa','FontSize',9);
-    plot([time3; timeexo.'+time3(end)],[q3;qexo.';qexo(end)]/1000,'Color','k')
-    xlim([time3(1) timeexo(end)+time3(end)])
-set(gca,'xticklabels',[])
-    subplot(4,2,3)
-    hold on
-    title('Angle of Attack (deg)','FontSize',9);
-    plot([time3; timeexo.'+time3(end)],[rad2deg(aoa3);0*ones(length(timeexo),1)],'Color','k')
-    xlim([time3(1) timeexo(end)+time3(end)])
-set(gca,'xticklabels',[])
-    subplot(4,2,4)
-    hold on
-    title('Velocity (m/s)','FontSize',9);
-    plot([time3; timeexo.'+time3(end)],[v3;v3exo.'],'Color','k')
-    xlim([time3(1) timeexo(end)+time3(end)])
-set(gca,'xticklabels',[])
-    subplot(4,2,5)
-    hold on
-    title('Mass (kg)','FontSize',9);
-    plot([time3; timeexo.'+time3(end)],[ m3;mexo.';mexo(end)],'Color','k')
-    xlim([time3(1) timeexo(end)+time3(end)])
-set(gca,'xticklabels',[])
-    subplot(4,2,6)
-    hold on
-    title('Thrust Vector Angle (deg)','FontSize',9);
-    plot([time3; timeexo.'+time3(end)],[rad2deg(Vec_angle3);0*ones(length(timeexo),1)],'Color','k')
-    xlabel('Time (s)','FontSize',9);
-    xlim([time3(1) timeexo(end)+time3(end)])
-set(gca,'xticklabels',[])
-    subplot(4,2,7)
-    hold on
-    title('Thrust','FontSize',9);
-    plot([time3], [T3],'Color','k')
+    
+ figure(311)
+ fig = gcf;
+set(fig,'Position',[200 0 850 720])
+hold on
+% %suptitle('Second Stage Ascent')
+subplot(3,1,1)
+% set(gca,'xticklabels',[])
+hold on
+xlim([0 time3(end)-time3(1)]);
+ plot(time3-time3(1),alt3/1000,'-','color','k', 'linewidth', 1.);
+% ylim([-30,40]);
+ylabel('altitude(km)');
+addaxis(time3-time3(1),v3/1000,'--','color','k', 'linewidth', 1.);
+addaxislabel(2,'Velocity (km/s)');
 
-    xlabel('Time (s)','FontSize',9);
-    xlim([time3(1) timeexo(end)+time3(end)])
-    subplot(4,2,8)
-    hold on
-    title('Drag','FontSize',9);
-    plot([time3], [D3],'Color','k')
+% addaxis(time,fpa,':','color','k', 'linewidth', 1.);
+% addaxislabel(3,'Trajectory Angle (deg)');
 
-    xlabel('Time (s)','FontSize',9);
-    xlim([time3(1) timeexo(end)+time3(end)])
+
+addaxis(time3-time3(1),q3/1000,':','color','k', 'linewidth', 1.2);
+addaxislabel(3,'Dynamic Pressure (kPa)');
+
+legend(  'Altitude', 'Velocity', 'Dynamic Pressure', 'location', 'best');
+
+
+subplot(3,1,2)
+% set(gca,'xticklabels',[])
+hold on
+xlim([0 time3(end)-time3(1)]);
+ plot(time3-time3(1),rad2deg(gamma3),'-','color','k', 'linewidth', 1.);
+% ylim([-30,40]);
+ylabel('Trajectory Angle (deg)');
+
+addaxis(time3-time3(1),rad2deg(zeta3),'--','color','k', 'linewidth', 1.);
+addaxislabel(2,'Heading Angle (deg)');
+
+addaxis(time3-time3(1),L3./D3,':','color','k', 'linewidth', 1.2);
+addaxislabel(3,'L/D');
+
+legend(  'Trajectory Angle', 'Heading Angle', 'L/D', 'location', 'best');
+
+
+subplot(3,1,3)
+% set(gca,'xticklabels',[])
+hold on
+xlim([0 time3(end)-time3(1)]);
+ plot(time3-time3(1),rad2deg(aoa3),'-','color','k', 'linewidth', 1.);
+% ylim([-30,40]);
+ylabel('Angle of Attack (deg)');
+
+
+
+addaxis(time3-time3(1),rad2deg(Vec_angle3),':','color','k', 'linewidth', 1.2);
+addaxislabel(2,'Thrust Vector Angle (deg)');
+
+addaxis(time3-time3(1),T3/1000,'--','color','k', 'linewidth', 1.);
+addaxislabel(3,'Thrust (kN)');
+
+legend(  'Angle of Attack', 'Thrust Vector', 'Thrust (kN)', 'location', 'best');
+
+xlabel('Time (s)');
+
+
     
     % Write data to file
     dlmwrite(strcat('ThirdStageStates',namelist{j}),['time (s) ' 'altitude (m) ' 'velocity (m/s) ' 'mass (kg) ' 'dynamic pressure (Pa)' 'trajectory angle (rad) ' 'Lift (N)' 'Drag (N)' 'heading angle (rad) ' 'latitude (rad) ' 'angle of attack (rad) '],'');
@@ -1032,53 +938,121 @@ y0 = [h0_prepitch, v0_prepitch, m0_prepitch, gamma0_prepitch, 0, 0, 0, 0, 0];
 [t_prepitch, y] = ode45(@(t,y) FirstStageDynamics(y,0,0,phase,interp,Throttle,Vehicle,Atmosphere), tspan2, y0);  
 
 
-figure(111);
-hold on
-%%suptitle('First Stage Trajectory');
-    fig = gcf;
-set(fig,'Position',[200 0 850 600])
-subplot(4,2,1)
-hold on
-title('Trajectory Angle (deg)');
-xlim([0 time1(end)+t_prepitch(end)]);
-plot([t_prepitch.' time1+t_prepitch(end)], [rad2deg(y(:,4).') rad2deg(gamma1)],'color','k');
-subplot(4,2,2)
-hold on
-title('Velocity (m/s)');
-xlim([0 time1(end)+t_prepitch(end)]);
-plot([t_prepitch.' time1+t_prepitch(end)], [y(:,2).' v1],'color','k');
-subplot(4,2,3)
-hold on
-title('Altitude (km)');
-xlim([0 time1(end)+t_prepitch(end)]);
-plot([t_prepitch.' time1+t_prepitch(end)], [y(:,1).'/1000 alt1/1000],'color','k');
-subplot(4,2,4)
-hold on
-title('Angle of Attack (deg)');
-xlim([0 time1(end)+t_prepitch(end)]);
-plot([t_prepitch.' time1+t_prepitch(end)], [zeros(1,length(t_prepitch)) rad2deg(alpha1)],'color','k');
-subplot(4,2,5)
-hold on
-title('Mass (kg)');
-xlim([0 time1(end)+t_prepitch(end)]);
-plot([t_prepitch.' time1+t_prepitch(end)], [y(:,3).' m1],'color','k');
-subplot(4,2,6)
-hold on
-title('Heading Angle (deg)');
-xlim([0 time1(end)+t_prepitch(end)]);
-plot([time1+t_prepitch(end)], [rad2deg(zeta1)],'color','k');
-subplot(4,2,7)
-hold on
-title('Latitude (deg)');
-xlim([0 time1(end)+t_prepitch(end)]);
-plot([t_prepitch.' time1+t_prepitch(end)], [rad2deg(lat1(1)+y(:,8).') rad2deg(lat1)],'color','k');
+% figure(111);
+% hold on
+% %%suptitle('First Stage Trajectory');
+%     fig = gcf;
+% set(fig,'Position',[200 0 850 600])
+% subplot(4,2,1)
+% hold on
+% title('Trajectory Angle (deg)');
+% xlim([0 time1(end)+t_prepitch(end)]);
+% plot([t_prepitch.' time1+t_prepitch(end)], [rad2deg(y(:,4).') rad2deg(gamma1)],'color','k');
+% subplot(4,2,2)
+% hold on
+% title('Velocity (m/s)');
+% xlim([0 time1(end)+t_prepitch(end)]);
+% plot([t_prepitch.' time1+t_prepitch(end)], [y(:,2).' v1],'color','k');
+% subplot(4,2,3)
+% hold on
+% title('Altitude (km)');
+% xlim([0 time1(end)+t_prepitch(end)]);
+% plot([t_prepitch.' time1+t_prepitch(end)], [y(:,1).'/1000 alt1/1000],'color','k');
+% subplot(4,2,4)
+% hold on
+% title('Angle of Attack (deg)');
+% xlim([0 time1(end)+t_prepitch(end)]);
+% plot([t_prepitch.' time1+t_prepitch(end)], [zeros(1,length(t_prepitch)) rad2deg(alpha1)],'color','k');
+% subplot(4,2,5)
+% hold on
+% title('Mass (kg)');
+% xlim([0 time1(end)+t_prepitch(end)]);
+% plot([t_prepitch.' time1+t_prepitch(end)], [y(:,3).' m1],'color','k');
+% subplot(4,2,6)
+% hold on
+% title('Heading Angle (deg)');
+% xlim([0 time1(end)+t_prepitch(end)]);
+% plot([time1+t_prepitch(end)], [rad2deg(zeta1)],'color','k');
+% subplot(4,2,7)
+% hold on
+% title('Latitude (deg)');
+% xlim([0 time1(end)+t_prepitch(end)]);
+% plot([t_prepitch.' time1+t_prepitch(end)], [rad2deg(lat1(1)+y(:,8).') rad2deg(lat1)],'color','k');
+% 
+% % plot([primal.nodes], [rad2deg(gamma)/100],'color','k','linestyle','-');
+% % plot([primal.nodes], [v/1000],'color','k','linestyle','--');
+% % plot([primal.nodes], [V/10000],'color','k','linestyle',':');
+% % plot([primal.nodes], [rad2deg(alpha)/10],'color','k','linestyle','-.')
+% xlabel('Time (s)')
+% xlim([0,time1(end)+t_prepitch(end)]);
 
-% plot([primal.nodes], [rad2deg(gamma)/100],'color','k','linestyle','-');
-% plot([primal.nodes], [v/1000],'color','k','linestyle','--');
-% plot([primal.nodes], [V/10000],'color','k','linestyle',':');
-% plot([primal.nodes], [rad2deg(alpha)/10],'color','k','linestyle','-.')
-xlabel('Time (s)')
-xlim([0,time1(end)+t_prepitch(end)]);
+
+
+phase = 'postpitch';
+
+interp = auxdata.interp;
+Throttle = auxdata.Throttle;
+Vehicle = auxdata.Vehicle;
+Atmosphere = auxdata.Atmosphere;
+
+[dz1,q1,xi1] = FirstStageDynamics(output{j}.result.solution.phase(1).state',output{j}.result.solution.phase(1).control',output{j}.result.solution.phase(1).time',phase,interp,Throttle,Vehicle,Atmosphere); % Pass primal variables into dynamics simulator
+
+ figure(111)
+ fig = gcf;
+set(fig,'Position',[200 0 850 450])
+hold on
+% %suptitle('Second Stage Ascent')
+subplot(2,1,1)
+% set(gca,'xticklabels',[])
+hold on
+xlim([0 time1(end)-time1(1)]);
+ plot(time1-time1(1),alt1/1000,'-','color','k', 'linewidth', 1.);
+% ylim([-30,40]);
+ylabel('altitude(km)');
+addaxis(time1-time1(1),v1/1000,'--','color','k', 'linewidth', 1.);
+addaxislabel(2,'Velocity (km/s)');
+
+% addaxis(time,fpa,':','color','k', 'linewidth', 1.);
+% addaxislabel(3,'Trajectory Angle (deg)');
+
+
+addaxis(time1-time1(1),q1/1000,':','color','k', 'linewidth', 1.2);
+addaxislabel(3,'Dynamic Pressure (kPa)');
+
+legend(  'Altitude', 'Velocity', 'Dynamic Pressure', 'location', 'best');
+
+
+subplot(2,1,2)
+% set(gca,'xticklabels',[])
+hold on
+xlim([0 time1(end)-time1(1)]);
+ plot(time1-time1(1),rad2deg(gamma1),'-','color','k', 'linewidth', 1.);
+% ylim([-30,40]);
+ylabel('Trajectory Angle (deg)');
+
+addaxis(time1-time1(1),rad2deg(zeta1),'--','color','k', 'linewidth', 1.);
+addaxislabel(2,'Heading Angle (deg)');
+
+% xlim([0 time1(end)-time1(1)]);
+% addaxis(time1-time1(1),rad2deg(alpha1),'-','color','k', 'linewidth', 1.);
+% % ylim([-30,40]);
+% addaxislabel(3,'Angle of Attack (deg)');
+
+
+addaxis(time1-time1(1),rad2deg(alpha1),':','color','k', 'linewidth', 1.2);
+addaxislabel(3,'Angle of Attack (deg)');
+
+xlabel('Time (s)');
+
+legend(  'Trajectory Angle', 'Heading Angle', 'Angle of Attack', 'location', 'best');
+
+
+
+
+
+
+
+
 
 saveas(figure(111),[sprintf('../ArchivedResults/%s',strcat(Timestamp,'mode',num2str(mode))),filesep,strcat('FirstStage',namelist{j},'.fig')]);
 print(figure(111),strcat('FirstStage',namelist{j}),'-dpng');
